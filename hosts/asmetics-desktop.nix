@@ -13,7 +13,12 @@
     ../system/bootloader.nix
     ../system/networking.nix
     ../shared-packages.nix
+    <home-manager/nixos>
   ];
+
+  home-manager.users.asmetics = import ../home/asmetics.nix {
+    inherit config pkgs;
+  };
 
   system.stateVersion = "25.05";
 }
