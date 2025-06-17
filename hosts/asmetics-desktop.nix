@@ -13,7 +13,7 @@
     ../system/bootloader.nix
     ../system/networking.nix
     ../shared-packages.nix
-    ../modules/home-manager.nix
+#    ../modules/home-manager.nix
   ];
 
   system.stateVersion = "25.05";
