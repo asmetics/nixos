@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ pkgs, application, ... }:
 
 {
   environment.systemPackages = with pkgs; [
@@ -25,6 +25,8 @@
     kdePackages.dolphin
     neofetch
     killall
+
+    application.packages.${pkgs.system}.default
   ];
 
   nixpkgs.config.allowUnfree = true;
