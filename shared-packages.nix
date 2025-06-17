@@ -7,6 +7,8 @@
     vscode
     blueman
     git
+    i3status
+    polybar
   ];
 
   nixpkgs.config.allowUnfree = true;

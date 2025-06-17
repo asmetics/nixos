@@ -1,9 +1,12 @@
-{ config, lib, pkgs, ... }:
+{ config, pkgs, ... }:
 
 {
   boot.blacklistedKernelModules = [ "nouveau" ];
 
-  services.xserver.videoDrivers = [ "nvidia" ];
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];
+  };
 
   hardware.nvidia = {
     modesetting.enable = true;
@@ -11,4 +14,6 @@
     open = false;
     nvidiaSettings = true;
   };
+
+  environment.systemPackages = with pkgs; [ nvidia-smi ];
 }

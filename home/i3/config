@@ -1,0 +1,102 @@
+# ──[ i3 Config]──────────────────────────────────────────────
+
+# Modifier key
+set $mod Mod4
+set $smod Shift
+
+# Font
+font pango:JetBrains Mono 10
+
+# ──[ Startup ]─────────────────────────────────────────────
+
+exec --no-startup-id picom --config ~/.config/picom/picom.config
+exec --no-startup-id dunst
+exec --no-startup-id blueman-applet
+exec_always --no-startup-id sh -c "pkill -x polybar; while pgrep -x polybar >/dev/null; do sleep 0.1; done; polybar --config=/etc/polybar/config bar &"
+
+# ──[ Application Launchers ]────────────────────────────────────────────────────
+bindsym $mod+T exec kitty            # Terminal
+bindsym $mod+Return exec librewolf   # Browser
+bindsym $mod+d exec dmenu_run        # App launcher
+
+# ──[ System Controls ]──────────────────────────────────────────────────────────
+bindsym $mod+$smod+e exec "i3-nagbar -t warning -m 'You pressed the exit shortcut. Do you really want to exit i3? This will end your X session.' -B 'Yes, exit i3' 'i3-msg exit'"
+bindsym $mod+$smod+r restart
+bindsym $mod+$smod+q kill
+
+# ──[ Focus Movement (Arrow Keys) ]──────────────────────────────────────────────
+bindsym $mod+Left focus left
+bindsym $mod+Down focus down
+bindsym $mod+Up focus up
+bindsym $mod+Right focus right
+
+# ──[ Move Focused Window (Shift + Arrows) ]─────────────────────────────────────
+bindsym $mod+$smod+Left move left
+bindsym $mod+$smod+Down move down
+bindsym $mod+$smod+Up move up
+bindsym $mod+$smod+Right move right
+
+# ──[ Resize Mode ]───────────────────────────────────────────────────────────────
+mode "resize" {
+    bindsym Left resize shrink width 10 px or 10 ppt
+    bindsym Down resize grow height 10 px or 10 ppt
+    bindsym Up resize shrink height 10 px or 10 ppt
+    bindsym Right resize grow width 10 px or 10 ppt
+
+    bindsym $smod+Left gaps horizontal minus 5
+    bindsym $smod+Down gaps horizontal plus 5
+    bindsym $smod+Up gaps vertical minus 5
+    bindsym $smod+Right gaps vertical plus 5
+
+    bindsym Return mode "default"
+    bindsym Escape mode "default"
+    bindsym $mod+r mode "default"
+}
+bindsym $mod+r mode "resize"
+
+# ──[ Gaps & Borders ]──────────────────────────────────────────────────────────────
+gaps horizontal 15
+gaps vertical 15
+smart_gaps on
+
+default_border pixel 2
+default_floating_border pixel 2
+smart_borders on
+
+# ──[ Colors ]──────────────────────────────────────────────────────────────────────
+client.focused          #000000 #ffffff #3B4252 #81A1C1 #81A1C1
+client.focused_inactive #ffffff #000000 #D8DEE9 #3B4252 #3B4252
+client.unfocused        #ffffff #000000 #D8DEE9 #3B4252 #3B4252
+client.urgent           #3B4252 #3B4252 #D8DEE9 #3B4252 #3B4252
+client.placeholder      #3B4252 #3B4252 #D8DEE9 #3B4252 #3B4252
+client.background       #000000
+
+# ──[ Bar Config – Minimal Style ]───────────────────────────────────────────────
+bar {
+    position bottom
+    mode dock
+    font pango:JetBrains Mono 10
+    separator_symbol " - "
+    status_command i3status
+    tray_output full
+
+    colors {
+        background #000000
+        statusline #D8DEE9
+        separator #D8DEE9
+
+        focused_workspace  #A3BE8C #A3BE8C #2E3440
+        active_workspace   #EBCB8B #EBCB8B #2E3440
+        inactive_workspace #BF616A #BF616A #2E3440
+        urgent_workspace   #D08770 #D08770 #2E3440
+    }
+}
+
+# ──[ Miscellaneous ]──────────────────────────────────────────────────────────────
+floating_modifier $mod
+
+bindsym $mod+f fullscreen toggle
+bindsym $mod+$smod+f floating toggle
+
+# Make it so polybar dosent stack when reloading i3
+exec_always --no-startup-id sh -c "killall -q polybar; polybar example" 
