@@ -25,8 +25,8 @@
     kdePackages.dolphin
     neofetch
     killall
-
-    application.packages.${pkgs.system}.default
+    python3
+    rust
   ];
 
   nixpkgs.config.allowUnfree = true;
