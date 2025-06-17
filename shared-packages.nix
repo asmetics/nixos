@@ -12,7 +12,7 @@
     feh
     i3
     dmenu
-    picom
+    picom-next
     flameshot
     dunst
     lxappearance
@@ -23,9 +23,9 @@
     neovim
     vlc
     kdePackages.dolphin
+    neofetch
+    killall
   ];
-
-
 
   nixpkgs.config.allowUnfree = true;
 }
